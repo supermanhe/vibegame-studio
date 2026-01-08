@@ -1,0 +1,39 @@
+{
+  "name": "vibegame-studio",
+  "version": "0.1.0",
+  "description": "AI 驱动的游戏策划案智能生成工具",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/cli.ts",
+    "index-docs": "tsx src/knowledge/indexer.ts",
+    "generate": "tsx src/cli.ts generate",
+    "start": "node dist/cli.js"
+  },
+  "keywords": [
+    "game-design",
+    "ai",
+    "claude",
+    "agent"
+  ],
+  "author": "William",
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.30.0",
+    "@lancedb/lancedb": "^0.9.0",
+    "commander": "^12.1.0",
+    "glob": "^11.0.0",
+    "openai": "^4.70.0",
+    "chalk": "^5.3.0",
+    "ora": "^8.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

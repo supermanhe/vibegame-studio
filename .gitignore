@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment variables
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Knowledge base (local data)
+knowledge-base/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Cache
+.cache/
+
+# Sensitive documents (company designs)
+docs/my-designs/*.docx
+docs/my-designs/*圣境*
+docs/my-designs/*网易*
