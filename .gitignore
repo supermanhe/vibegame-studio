@@ -30,3 +30,9 @@ npm-debug.log*
 docs/my-designs/*.docx
 docs/my-designs/*圣境*
 docs/my-designs/*网易*
+docs/my-designs/new/
+docs/references/*.xlsx
+
+# Temp files
+nul
+tmpclaude-*
