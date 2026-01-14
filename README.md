@@ -6,36 +6,28 @@ AI 驱动的游戏策划案智能生成工具。
 
 ## 快速开始
 
-### 方式一：Claude Code 模式（推荐）
-
-无需 API Key，直接在 Claude Code 中使用：
+在 Claude Code 中打开本项目目录：
 
 ```bash
-# 在这个项目目录下打开 Claude Code
 cd Vibegame-studio
-
-# 一键生成完整策划案
-/generate 一款结合 Roguelike 和塔防的手游
-
-# 或者分步调用各 Agent
-/producer 一款结合 Roguelike 和塔防的手游    # 制作人：提炼玩法支柱
-/system-designer                              # 系统策划：设计系统架构
-/lead-designer                                # 主策划：整合输出策划案
 ```
 
-### 方式二：API 模式（给其他人用）
-
-需要 Claude API Key：
+然后使用 Skills 生成策划案：
 
 ```bash
-# 1. 安装依赖
-npm install
+# 第一步：制作人分析创意，定义愿景
+/producer 一款结合 Roguelike 和塔防的手游
 
-# 2. 设置环境变量
-set ANTHROPIC_API_KEY=your-api-key
+# 第二步：系统策划和世界观策划（可并行）
+/system-designer
+/worldview-designer
 
-# 3. 生成策划案
-npm run generate "一款结合 Roguelike 和塔防的手游"
+# 第三步：数值策划和战斗策划（依赖系统架构，可并行）
+/numerical-designer
+/combat-designer
+
+# 第四步：制作人整合输出总策划案
+/producer
 ```
 
 ## 知识库
@@ -44,55 +36,79 @@ npm run generate "一款结合 Roguelike 和塔防的手游"
 
 ```
 docs/
-├── my-designs/      # 你的历史策划案
+├── my-designs/      # 历史策划案（设计风格参考）
 │   └── xxx-策划案.md
 └── references/      # 行业参考资料
     └── roguelike-设计要点.md
 ```
 
-## Agent 角色
+## Skills（Agent 角色）
 
 | 命令 | 角色 | 职责 |
 |------|------|------|
-| `/producer` | 游戏制作人 | 提炼核心玩法支柱和游戏愿景 |
+| `/producer` | 游戏制作人 | 定义核心愿景、分发任务、整合输出 |
 | `/system-designer` | 系统策划 | 设计系统架构和核心循环 |
-| `/lead-designer` | 主策划 | Review 并输出完整策划案 |
-| `/generate` | 协调器 | 一键执行完整流程 |
+| `/worldview-designer` | 世界观策划 | 设计世界背景、角色、剧情 |
+| `/numerical-designer` | 数值策划 | 设计经济系统和成长曲线 |
+| `/combat-designer` | 战斗策划 | 设计战斗系统和怪物AI |
+
+## 工作流程
+
+```
+/producer（定大方向）
+         │
+    ┌────┼────┐
+    ↓         ↓
+/worldview  /system-designer ←── 可并行
+              │
+         ┌────┴────┐
+         ↓         ↓
+    /numerical  /combat-designer ←── 可并行
+              │
+              ↓
+       /producer（Review & 整合）
+              ↓
+         总策划案
+```
 
 ## 输出示例
 
-生成的策划案会保存到 `output/` 目录，包含：
+生成的策划案会保存到 `output/` 目录：
 
-- 核心愿景和玩法支柱
-- 系统架构图（Mermaid）
-- 核心玩法循环
-- 用户流程设计
-- 主策划 Review 意见
-- 风险提示和建议
+```
+output/
+├── [游戏名]-总策划案.md      # 最终输出
+├── producer/
+│   └── [游戏名]-愿景.md
+├── system/
+│   └── [游戏名]-系统架构.md
+├── numerical/
+│   └── [游戏名]-数值设计.md
+├── worldview/
+│   └── [游戏名]-世界观.md
+└── combat/
+    └── [游戏名]-战斗设计.md
+```
 
 ## 目录结构
 
 ```
 vibegame-studio/
-├── .claude/commands/    # 自定义 Skills（Agent 定义）
-│   ├── generate.md      # 一键生成
-│   ├── producer.md      # 制作人
-│   ├── system-designer.md # 系统策划
-│   └── lead-designer.md # 主策划
-├── src/                 # API 版本源码
-│   ├── agents/          # Agent 配置
-│   ├── cli.ts           # CLI 入口
-│   └── index.ts         # 主程序
-├── docs/                # 知识库文档
-├── output/              # 生成的策划案
-├── CLAUDE.md            # Claude Code 配置
-└── package.json
+├── .claude/
+│   └── skills/              # Skills 定义（Agent 角色）
+│       ├── producer/
+│       ├── system-designer/
+│       ├── numerical-designer/
+│       ├── worldview-designer/
+│       └── combat-designer/
+├── docs/                    # 知识库文档
+├── output/                  # 生成的策划案
+├── CLAUDE.md                # Claude Code 配置
+└── README.md
 ```
 
 ## 后续扩展
 
-- [ ] 添加数值策划 Agent
-- [ ] 添加战斗策划 Agent
 - [ ] 添加白盒原型生成
 - [ ] 添加 Web 界面
 - [ ] 添加 RAG 向量检索
@@ -103,4 +119,4 @@ William
 
 ---
 
-Made with ❤️ and Claude
+Made with Claude Code
